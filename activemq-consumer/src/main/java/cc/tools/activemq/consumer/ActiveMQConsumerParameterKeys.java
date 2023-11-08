@@ -3,7 +3,7 @@ package cc.tools.activemq.consumer;
 import java.util.*;
 
 /**
- * This encapsulates Parameter key values
+ * This encapsulates Parameter keys.
  * 
  * @author cc
  * @version %I%, %G%
