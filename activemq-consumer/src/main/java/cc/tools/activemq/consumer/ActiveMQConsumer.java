@@ -141,7 +141,7 @@ public class ActiveMQConsumer implements ExceptionListener {
             
           } else if (message == null) {
 
-            if ((Instant.now().toEpochMilli() - start) > _config.getTimeout()) {
+            if ((Instant.now().toEpochMilli() - start) >= _config.getTimeout()) {
 
               _logger.info("timeout");
               
