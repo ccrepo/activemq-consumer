@@ -2,6 +2,7 @@ package cc.tools.activemq.consumer;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
 
+import java.time.Instant;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.jms.Connection;
@@ -122,6 +123,8 @@ public class ActiveMQConsumer implements ExceptionListener {
         }
         
         try {
+
+          long start = Instant.now().toEpochMilli();
           
           Message message = consumer.receive(_config.getTimeout());
 
@@ -138,8 +141,18 @@ public class ActiveMQConsumer implements ExceptionListener {
             
           } else if (message == null) {
 
-            //_logger.debug("no message");
+            if ((Instant.now().toEpochMilli() - start) > _config.getTimeout()) {
 
+              _logger.info("timeout");
+              
+              break;
+              
+            } else {
+
+              _logger.error("null message");
+
+            }
+            
           } else {
             
             _logger.info("invalid message");
